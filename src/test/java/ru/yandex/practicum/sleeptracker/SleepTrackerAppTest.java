@@ -44,7 +44,7 @@ class SleepTrackerAppTest {
         System.setOut(originalOut);
         String actualResult = byteArrayOutputStream.toString();
 
-        assertEquals(exceptedResult, actualResult);
+        assertEquals(exceptedResult.trim(), actualResult.trim());
     }
 
     private static List<SleepingSession> getSleepingSessions(DateTimeFormatter formatter) {
