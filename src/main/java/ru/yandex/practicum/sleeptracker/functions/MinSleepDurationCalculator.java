@@ -17,7 +17,7 @@ public class MinSleepDurationCalculator implements Function<List<SleepingSession
                 .map(SleepingSession::getSleepduration)
                 .min(Comparator.comparing(Duration::toMinutes));
 
-        if (!optionalDuration.isPresent()) {
+        if (optionalDuration.isEmpty()) {
             return new SleepAnalysisResult("Сессии сна для расчёта отсутствуют: ", 0);
         }
 

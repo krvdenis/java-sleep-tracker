@@ -16,7 +16,7 @@ public class ChronotypeClassifier implements Function<List<SleepingSession>, Sle
 
         if (sleepingSessions.isEmpty()) {
             return new SleepAnalysisResult(
-                    "Сессия cна для анализа отсутствуют: " ,
+                    "Сессия cна для анализа отсутствуют: ",
                     "невозможно определить хронотип"
             );
         }
