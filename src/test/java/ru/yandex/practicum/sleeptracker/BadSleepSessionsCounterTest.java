@@ -12,9 +12,12 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BadSleepSessionsCounterTest {
+    private final static String DATE_TIME_FORMAT = "dd.MM.yy HH:mm";
+    private final static String DESCRIPTION_OF_EMPTY_RESULT = "Сессии сна для анализа отсутствуют: ";
+    private final static String DESCRIPTION_OF_RESULT = "Количество сессий с плохим качеством сна: ";
     private final BadSleepSessionsCounter badSleepSessionsCounter = new BadSleepSessionsCounter();
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yy HH:mm");
-    List<SleepingSession> sleepingSessions;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
+    private List<SleepingSession> sleepingSessions;
 
     @BeforeEach
     void init() {
@@ -26,7 +29,7 @@ public class BadSleepSessionsCounterTest {
         SleepAnalysisResult amountSessionsWithBadSleepQuality = badSleepSessionsCounter.apply(sleepingSessions);
 
         assertEquals(
-                "Сессии сна для расчёта отсутствуют: ",
+                DESCRIPTION_OF_EMPTY_RESULT,
                 amountSessionsWithBadSleepQuality.getDescription()
         );
         assertEquals(0, amountSessionsWithBadSleepQuality.getResult());
@@ -45,7 +48,7 @@ public class BadSleepSessionsCounterTest {
         SleepAnalysisResult amountSessionsWithBadSleepQuality = badSleepSessionsCounter.apply(sleepingSessions);
 
         assertEquals(
-                "Количество сессий с плохим качеством сна: ",
+                DESCRIPTION_OF_RESULT,
                 amountSessionsWithBadSleepQuality.getDescription()
         );
         assertEquals(0, amountSessionsWithBadSleepQuality.getResult());
@@ -64,7 +67,7 @@ public class BadSleepSessionsCounterTest {
         SleepAnalysisResult amountSessionsWithBadSleepQuality = badSleepSessionsCounter.apply(sleepingSessions);
 
         assertEquals(
-                "Количество сессий с плохим качеством сна: ",
+                DESCRIPTION_OF_RESULT,
                 amountSessionsWithBadSleepQuality.getDescription()
         );
         assertEquals(1, amountSessionsWithBadSleepQuality.getResult());
@@ -83,7 +86,7 @@ public class BadSleepSessionsCounterTest {
         SleepAnalysisResult amountSessionsWithBadSleepQuality = badSleepSessionsCounter.apply(sleepingSessions);
 
         assertEquals(
-                "Количество сессий с плохим качеством сна: ",
+                DESCRIPTION_OF_RESULT,
                 amountSessionsWithBadSleepQuality.getDescription()
         );
         assertEquals(2, amountSessionsWithBadSleepQuality.getResult());

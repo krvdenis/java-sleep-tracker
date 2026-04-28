@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SleepTrackerAppTest {
+    final static String REQUIRE_FILE_PATH_INPUT = "Укажите путь к файлу в качестве аргумента командной строки.";
+    final static String VALID_FILE_PATH = "src/main/resources/sleep_log.txt";
 
     @Test
     void shouldThrowRuntimeExceptionWhenMainWithoutArguments() {
@@ -13,13 +15,11 @@ class SleepTrackerAppTest {
                 () -> SleepTrackerApp.main(new String[0])
         );
 
-        assertEquals("Укажите путь к файлу в качестве аргумента командной строки.", exception.getMessage());
+        assertEquals(REQUIRE_FILE_PATH_INPUT, exception.getMessage());
     }
 
     @Test
     void shouldNotThrowExceptionWhenMainWithValidArgument() {
-        String validFilePath = "src/main/resources/sleep_log.txt";
-
-        assertDoesNotThrow(() -> SleepTrackerApp.main(new String[]{validFilePath}));
+        assertDoesNotThrow(() -> SleepTrackerApp.main(new String[]{VALID_FILE_PATH}));
     }
 }

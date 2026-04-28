@@ -7,15 +7,18 @@ import java.util.List;
 import java.util.function.Function;
 
 public class TotalSleepSessionsCounter implements Function<List<SleepingSession>, SleepAnalysisResult> {
+    private final static String DESCRIPTION_OF_RESULT = "Общее количество сессий сна: ";
+    private final static String DESCRIPTION_OF_EMPTY_RESULT = "Сессии сна для анализа отсутствуют: ";
+    private final static int EMPTY_RESULT = 0;
 
     @Override
     public SleepAnalysisResult apply(List<SleepingSession> sleepingSessions) {
         if (sleepingSessions.isEmpty()) {
-            return new SleepAnalysisResult("Сессии сна для расчёта отсутствуют: ", 0);
+            return new SleepAnalysisResult(DESCRIPTION_OF_EMPTY_RESULT, EMPTY_RESULT);
         }
 
         int totalSleepSessions = sleepingSessions.size();
 
-        return new SleepAnalysisResult("Общее количество сессий сна: ", totalSleepSessions);
+        return new SleepAnalysisResult(DESCRIPTION_OF_RESULT, totalSleepSessions);
     }
 }

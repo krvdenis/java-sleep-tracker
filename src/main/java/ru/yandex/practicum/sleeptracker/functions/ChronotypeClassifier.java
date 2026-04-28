@@ -10,15 +10,15 @@ import java.util.List;
 import java.util.function.Function;
 
 public class ChronotypeClassifier implements Function<List<SleepingSession>, SleepAnalysisResult> {
+    private final static String DESCRIPTION_OF_RESULT = "Ваш хронотип: ";
+    private final static String DESCRIPTION_OF_EMPTY_RESULT = "Сессии cна для анализа отсутствуют: ";
+    private final static String EMPTY_RESULT = "невозможно определить хронотип";
 
     @Override
     public SleepAnalysisResult apply(List<SleepingSession> sleepingSessions) {
 
         if (sleepingSessions.isEmpty()) {
-            return new SleepAnalysisResult(
-                    "Сессия cна для анализа отсутствуют: ",
-                    "невозможно определить хронотип"
-            );
+            return new SleepAnalysisResult(DESCRIPTION_OF_EMPTY_RESULT, EMPTY_RESULT);
         }
 
         LocalTime lateEveningThreshold = LocalTime.of(23, 59, 59, 59);
@@ -29,8 +29,8 @@ public class ChronotypeClassifier implements Function<List<SleepingSession>, Sle
                     LocalDate sleepDate = sleepingSession.getSleepDateTime().toLocalDate();
                     LocalDate wakeUppDate = sleepingSession.getWakeUpDateTime().toLocalDate();
 
-                    return (sleepTime.isBefore(lateEveningThreshold) && !sleepDate.equals(wakeUppDate)) ||
-                            sleepTime.isBefore(morningThreshold);
+                    return (sleepTime.isBefore(lateEveningThreshold) && !sleepDate.equals(wakeUppDate))
+                            || sleepTime.isBefore(morningThreshold);
                 })
                 .count();
 
@@ -38,9 +38,9 @@ public class ChronotypeClassifier implements Function<List<SleepingSession>, Sle
                 .filter(sleepingSession -> {
                     LocalTime sleepTime = sleepingSession.getSleepDateTime().toLocalTime();
                     LocalTime wakeUpTime = sleepingSession.getWakeUpDateTime().toLocalTime();
-                    return wakeUpTime.isAfter(LocalTime.of(9, 0)) &&
-                            (sleepTime.isAfter(LocalTime.of(23, 0)) ||
-                                    sleepTime.isBefore(LocalTime.of(6, 0)));
+                    return wakeUpTime.isAfter(LocalTime.of(9, 0))
+                            && (sleepTime.isAfter(LocalTime.of(23, 0))
+                            || sleepTime.isBefore(LocalTime.of(6, 0)));
                 })
                 .count();
 
@@ -50,16 +50,24 @@ public class ChronotypeClassifier implements Function<List<SleepingSession>, Sle
                     LocalTime wakeUpTime = sleepingSession.getWakeUpDateTime().toLocalTime();
                     return wakeUpTime.isBefore(LocalTime.of(7, 0))
                             && sleepTime.isBefore(LocalTime.of(22, 0))
-                            && !sleepTime.isBefore(LocalTime.of(7, 0)); // учесть ситуацию, когда лёг до 6 утра
+                            && !sleepTime.isBefore(LocalTime.of(7, 0));
                 })
                 .count();
 
-        String chronotypeOfUser = getChronotypeOfUser(amountOfNightsWithSleep, amountOfEarlyBirdTypeSessions, amountOfNightOwlTypeSessions);
+        String chronotypeOfUser = getChronotypeOfUser(
+                amountOfNightsWithSleep,
+                amountOfEarlyBirdTypeSessions,
+                amountOfNightOwlTypeSessions
+        );
 
-        return new SleepAnalysisResult("Ваш хронотип: ", chronotypeOfUser);
+        return new SleepAnalysisResult(DESCRIPTION_OF_RESULT, chronotypeOfUser);
     }
 
-    private static String getChronotypeOfUser(int amountOfNightsWithSleep, int amountOfEarlyBirdTypeSessions, int amountOfNightOwlTypeSessions) {
+    private static String getChronotypeOfUser(
+            int amountOfNightsWithSleep,
+            int amountOfEarlyBirdTypeSessions,
+            int amountOfNightOwlTypeSessions
+    ) {
         int amountOfPigeonTypeSessions = amountOfNightsWithSleep - amountOfEarlyBirdTypeSessions
                 - amountOfNightOwlTypeSessions;
         String chronoTypeOfUser = Chronotypes.NIGHT_OWL.getRusName();
@@ -73,6 +81,7 @@ public class ChronotypeClassifier implements Function<List<SleepingSession>, Sle
                 chronoTypeOfUser = Chronotypes.PIGEON.getRusName();
             }
         }
+
         return chronoTypeOfUser;
     }
 }

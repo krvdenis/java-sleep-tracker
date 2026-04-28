@@ -11,14 +11,14 @@ import java.util.List;
 import java.util.function.Function;
 
 public class SleeplessNightsDetector implements Function<List<SleepingSession>, SleepAnalysisResult> {
+    private final static String DESCRIPTION_OF_RESULT = "Общее количество бессонных ночей: ";
+    private final static String DESCRIPTION_OF_EMPTY_RESULT = "Сессии cна для анализа отсутствуют: ";
+    private final static String EMPTY_RESULT = "невозможно определить количество бессонных ночей";
 
     @Override
     public SleepAnalysisResult apply(List<SleepingSession> sleepingSessions) {
         if (sleepingSessions.isEmpty()) {
-            return new SleepAnalysisResult(
-                    "Сессия cна для анализа отсутствуют: ",
-                    "невозможно определить количество бессонных ночей"
-            );
+            return new SleepAnalysisResult(DESCRIPTION_OF_EMPTY_RESULT, EMPTY_RESULT);
         }
 
         LocalDate firstNight;
@@ -34,7 +34,6 @@ public class SleeplessNightsDetector implements Function<List<SleepingSession>, 
         LocalTime lateEveningThreshold = LocalTime.of(23, 59, 59, 59);
         LocalTime morningThreshold = LocalTime.of(6, 0);
         int amountOfNights = (int) ChronoUnit.DAYS.between(firstNight, lastNight.plusDays(1));
-        int amountOfSleeplessNight;
         int amountOfNightsWithSleep = (int) sleepingSessions.stream()
                 .filter(sleepingSession -> {
                     LocalTime sleepTime = sleepingSession.getSleepDateTime().toLocalTime();
@@ -46,8 +45,8 @@ public class SleeplessNightsDetector implements Function<List<SleepingSession>, 
                 })
                 .count();
 
-        amountOfSleeplessNight = amountOfNights - amountOfNightsWithSleep;
+        int amountOfSleeplessNight = amountOfNights - amountOfNightsWithSleep;
 
-        return new SleepAnalysisResult("Общее количество бессонных ночей: ", amountOfSleeplessNight);
+        return new SleepAnalysisResult(DESCRIPTION_OF_RESULT, amountOfSleeplessNight);
     }
 }

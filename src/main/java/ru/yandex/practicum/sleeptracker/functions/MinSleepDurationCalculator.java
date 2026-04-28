@@ -10,6 +10,9 @@ import java.util.Optional;
 import java.util.function.Function;
 
 public class MinSleepDurationCalculator implements Function<List<SleepingSession>, SleepAnalysisResult> {
+    private final static String DESCRIPTION_OF_RESULT = "Минимальная продолжительность сессии в минутах: ";
+    private final static String DESCRIPTION_OF_EMPTY_RESULT = "Сессии сна для анализа отсутствуют: ";
+    private final static int EMPTY_RESULT = 0;
 
     @Override
     public SleepAnalysisResult apply(List<SleepingSession> sleepingSessions) {
@@ -18,15 +21,11 @@ public class MinSleepDurationCalculator implements Function<List<SleepingSession
                 .min(Comparator.comparing(Duration::toMinutes));
 
         if (optionalDuration.isEmpty()) {
-            return new SleepAnalysisResult("Сессии сна для расчёта отсутствуют: ", 0);
+            return new SleepAnalysisResult(DESCRIPTION_OF_EMPTY_RESULT, EMPTY_RESULT);
         }
 
         int minSleepDurationInMinutes = (int) optionalDuration.get().toMinutes();
 
-        return new SleepAnalysisResult(
-                "Минимальная продолжительность сессии в минутах: ",
-                minSleepDurationInMinutes
-        );
-
+        return new SleepAnalysisResult(DESCRIPTION_OF_RESULT, minSleepDurationInMinutes);
     }
 }

@@ -12,10 +12,12 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MaxSleepDurationCalculatorTest {
-
+    private final static String DATE_TIME_FORMAT = "dd.MM.yy HH:mm";
+    private final static String DESCRIPTION_OF_RESULT = "Максимальная продолжительность сессии в минутах: ";
+    private final static String DESCRIPTION_OF_EMPTY_RESULT = "Сессии сна для анализа отсутствуют: ";
     private final MaxSleepDurationCalculator maxSleepDurationCalculator = new MaxSleepDurationCalculator();
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yy HH:mm");
-    List<SleepingSession> sleepingSessions;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
+    private List<SleepingSession> sleepingSessions;
 
     @BeforeEach
     void init() {
@@ -26,7 +28,7 @@ public class MaxSleepDurationCalculatorTest {
     void shouldReturnZeroWhenListOfSleepSessionsIsEmpty() {
         SleepAnalysisResult maxSleepDurationInMinutes = maxSleepDurationCalculator.apply(sleepingSessions);
 
-        assertEquals("Сессии сна для расчёта отсутствуют: ", maxSleepDurationInMinutes.getDescription());
+        assertEquals(DESCRIPTION_OF_EMPTY_RESULT, maxSleepDurationInMinutes.getDescription());
         assertEquals(0, maxSleepDurationInMinutes.getResult());
     }
 
@@ -43,7 +45,7 @@ public class MaxSleepDurationCalculatorTest {
         SleepAnalysisResult maxSleepDurationInMinutes = maxSleepDurationCalculator.apply(sleepingSessions);
 
         assertEquals(
-                "Максимальная продолжительность сессии в минутах: ",
+                DESCRIPTION_OF_RESULT,
                 maxSleepDurationInMinutes.getDescription()
         );
         assertEquals(720, maxSleepDurationInMinutes.getResult());

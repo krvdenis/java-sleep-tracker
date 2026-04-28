@@ -12,9 +12,11 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TotalSleepSessionsCounterTest {
-
+    private final static String DATE_TIME_FORMAT = "dd.MM.yy HH:mm";
+    private final static String DESCRIPTION_OF_RESULT = "Общее количество сессий сна: ";
+    private final static String DESCRIPTION_OF_EMPTY_RESULT = "Сессии сна для анализа отсутствуют: ";
     private final TotalSleepSessionsCounter totalSleepSessionsCounter = new TotalSleepSessionsCounter();
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yy HH:mm");
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
     private List<SleepingSession> sleepingSessions;
 
     @BeforeEach
@@ -26,7 +28,7 @@ public class TotalSleepSessionsCounterTest {
     void shouldReturnZeroWhenListOfSleepSessionsIsEmpty() {
         SleepAnalysisResult totalSleepSessions = totalSleepSessionsCounter.apply(sleepingSessions);
 
-        assertEquals("Сессии сна для расчёта отсутствуют: ", totalSleepSessions.getDescription());
+        assertEquals(DESCRIPTION_OF_EMPTY_RESULT, totalSleepSessions.getDescription());
         assertEquals(0, totalSleepSessions.getResult());
     }
 
@@ -38,7 +40,7 @@ public class TotalSleepSessionsCounterTest {
         ));
         SleepAnalysisResult totalSleepSessions = totalSleepSessionsCounter.apply(sleepingSessions);
 
-        assertEquals("Общее количество сессий сна: ", totalSleepSessions.getDescription());
+        assertEquals(DESCRIPTION_OF_RESULT, totalSleepSessions.getDescription());
         assertEquals(1, totalSleepSessions.getResult());
     }
 
@@ -54,7 +56,7 @@ public class TotalSleepSessionsCounterTest {
                 )));
         SleepAnalysisResult totalSleepSessions = totalSleepSessionsCounter.apply(sleepingSessions);
 
-        assertEquals("Общее количество сессий сна: ", totalSleepSessions.getDescription());
+        assertEquals(DESCRIPTION_OF_RESULT, totalSleepSessions.getDescription());
         assertEquals(2, totalSleepSessions.getResult());
     }
 }

@@ -12,9 +12,11 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AverageSleepDurationCalculatorTest {
+    private final static String DATE_TIME_FORMAT = "dd.MM.yy HH:mm";
+    private final static String DESCRIPTION_OF_RESULT = "Средняя продолжительность сессий в минутах: ";
     private final AverageSleepDurationCalculator averageSleepDurationCalculator = new AverageSleepDurationCalculator();
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yy HH:mm");
-    List<SleepingSession> sleepingSessions;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
+    private List<SleepingSession> sleepingSessions;
 
     @BeforeEach
     void init() {
@@ -25,7 +27,7 @@ public class AverageSleepDurationCalculatorTest {
     void shouldReturnZeroWhenListOfSleepSessionsIsEmpty() {
         SleepAnalysisResult averageSleepDurationInMinutes = averageSleepDurationCalculator.apply(sleepingSessions);
 
-        assertEquals("Средняя продолжительность сессии в минутах: ", averageSleepDurationInMinutes.getDescription());
+        assertEquals(DESCRIPTION_OF_RESULT, averageSleepDurationInMinutes.getDescription());
         assertEquals(0, averageSleepDurationInMinutes.getResult());
     }
 
@@ -36,11 +38,11 @@ public class AverageSleepDurationCalculatorTest {
                         LocalDateTime.parse("02.10.25 10:15", formatter), "NORMAL"),
                 new SleepingSession(
                         LocalDateTime.parse("02.10.25 22:15", formatter),
-                        LocalDateTime.parse("03.10.25 10:15", formatter), "NORMAL"
-                )));
+                        LocalDateTime.parse("03.10.25 10:15", formatter), "NORMAL")
+        ));
         SleepAnalysisResult averageSleepDurationInMinutes = averageSleepDurationCalculator.apply(sleepingSessions);
 
-        assertEquals("Средняя продолжительность сессии в минутах: ", averageSleepDurationInMinutes.getDescription());
+        assertEquals(DESCRIPTION_OF_RESULT, averageSleepDurationInMinutes.getDescription());
         assertEquals(690, averageSleepDurationInMinutes.getResult());
     }
 }

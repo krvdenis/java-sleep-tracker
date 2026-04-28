@@ -12,9 +12,13 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SleeplessNightsDetectorTest {
+    private final static String DATE_TIME_FORMAT = "dd.MM.yy HH:mm";
+    private final static String DESCRIPTION_OF_RESULT = "Общее количество бессонных ночей: ";
+    private final static String DESCRIPTION_OF_EMPTY_RESULT = "Сессии cна для анализа отсутствуют: ";
+    private final static String EMPTY_RESULT = "невозможно определить количество бессонных ночей";
     private final SleeplessNightsDetector sleeplessNightsDetector = new SleeplessNightsDetector();
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yy HH:mm");
-    List<SleepingSession> sleepingSessions;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
+    private List<SleepingSession> sleepingSessions;
 
     @BeforeEach
     void init() {
@@ -25,8 +29,8 @@ public class SleeplessNightsDetectorTest {
     void shouldReturnWarningWhenListOfSleepSessionsIsEmpty() {
         SleepAnalysisResult amountOfSleeplessNight = sleeplessNightsDetector.apply(sleepingSessions);
 
-        assertEquals("Сессия cна для анализа отсутствуют: ", amountOfSleeplessNight.getDescription());
-        assertEquals("невозможно определить количество бессонных ночей", amountOfSleeplessNight.getResult());
+        assertEquals(DESCRIPTION_OF_EMPTY_RESULT, amountOfSleeplessNight.getDescription());
+        assertEquals(EMPTY_RESULT, amountOfSleeplessNight.getResult());
     }
 
     @Test
@@ -48,7 +52,7 @@ public class SleeplessNightsDetectorTest {
         SleepAnalysisResult amountOfSleeplessNight = sleeplessNightsDetector.apply(sleepingSessions);
 
         assertEquals(
-                "Общее количество бессонных ночей: ",
+                DESCRIPTION_OF_RESULT,
                 amountOfSleeplessNight.getDescription()
         );
         assertEquals(27, amountOfSleeplessNight.getResult());
@@ -74,7 +78,7 @@ public class SleeplessNightsDetectorTest {
         SleepAnalysisResult amountOfSleeplessNight = sleeplessNightsDetector.apply(sleepingSessions);
 
         assertEquals(
-                "Общее количество бессонных ночей: ",
+                DESCRIPTION_OF_RESULT,
                 amountOfSleeplessNight.getDescription()
         );
         assertEquals(29, amountOfSleeplessNight.getResult());
@@ -103,7 +107,7 @@ public class SleeplessNightsDetectorTest {
         SleepAnalysisResult amountOfSleeplessNight = sleeplessNightsDetector.apply(sleepingSessions);
 
         assertEquals(
-                "Общее количество бессонных ночей: ",
+                DESCRIPTION_OF_RESULT,
                 amountOfSleeplessNight.getDescription()
         );
         assertEquals(26, amountOfSleeplessNight.getResult());
@@ -132,7 +136,7 @@ public class SleeplessNightsDetectorTest {
         SleepAnalysisResult amountOfSleeplessNight = sleeplessNightsDetector.apply(sleepingSessions);
 
         assertEquals(
-                "Общее количество бессонных ночей: ",
+                DESCRIPTION_OF_RESULT,
                 amountOfSleeplessNight.getDescription()
         );
         assertEquals(27, amountOfSleeplessNight.getResult());

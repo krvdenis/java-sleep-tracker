@@ -12,9 +12,13 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ChronotypeClassifierTest {
+    private final static String DATE_TIME_FORMAT = "dd.MM.yy HH:mm";
+    private final static String DESCRIPTION_OF_RESULT = "Ваш хронотип: ";
+    private final static String DESCRIPTION_OF_EMPTY_RESULT = "Сессии cна для анализа отсутствуют: ";
+    private final static String EMPTY_RESULT = "невозможно определить хронотип";
     private final ChronotypeClassifier chronotypeClassifier = new ChronotypeClassifier();
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yy HH:mm");
-    List<SleepingSession> sleepingSessions;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
+    private List<SleepingSession> sleepingSessions;
 
     @BeforeEach
     void init() {
@@ -25,8 +29,8 @@ public class ChronotypeClassifierTest {
     void shouldReturnWarningWhenListOfSleepSessionsIsEmpty() {
         SleepAnalysisResult chronotypeOfUser = chronotypeClassifier.apply(sleepingSessions);
 
-        assertEquals("Сессия cна для анализа отсутствуют: ", chronotypeOfUser.getDescription());
-        assertEquals("невозможно определить хронотип", chronotypeOfUser.getResult());
+        assertEquals(DESCRIPTION_OF_EMPTY_RESULT, chronotypeOfUser.getDescription());
+        assertEquals(EMPTY_RESULT, chronotypeOfUser.getResult());
     }
 
     @Test
@@ -44,7 +48,7 @@ public class ChronotypeClassifierTest {
         SleepAnalysisResult chronotypeOfUser = chronotypeClassifier.apply(sleepingSessions);
 
         assertEquals(
-                "Ваш хронотип: ",
+                DESCRIPTION_OF_RESULT,
                 chronotypeOfUser.getDescription()
         );
         assertEquals("Голубь", chronotypeOfUser.getResult());
@@ -69,7 +73,7 @@ public class ChronotypeClassifierTest {
         SleepAnalysisResult chronotypeOfUser = chronotypeClassifier.apply(sleepingSessions);
 
         assertEquals(
-                "Ваш хронотип: ",
+                DESCRIPTION_OF_RESULT,
                 chronotypeOfUser.getDescription()
         );
         assertEquals("Сова", chronotypeOfUser.getResult());
@@ -94,7 +98,7 @@ public class ChronotypeClassifierTest {
         SleepAnalysisResult chronotypeOfUser = chronotypeClassifier.apply(sleepingSessions);
 
         assertEquals(
-                "Ваш хронотип: ",
+                DESCRIPTION_OF_RESULT,
                 chronotypeOfUser.getDescription()
         );
         assertEquals("Жаворонок", chronotypeOfUser.getResult());
@@ -119,7 +123,7 @@ public class ChronotypeClassifierTest {
         SleepAnalysisResult chronotypeOfUser = chronotypeClassifier.apply(sleepingSessions);
 
         assertEquals(
-                "Ваш хронотип: ",
+                DESCRIPTION_OF_RESULT,
                 chronotypeOfUser.getDescription()
         );
         assertEquals("Голубь", chronotypeOfUser.getResult());

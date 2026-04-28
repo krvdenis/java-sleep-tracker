@@ -10,8 +10,11 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class SleepTrackerApp {
-    static List<SleepingSession> sleepingSessions;
-    static List<Function<List<SleepingSession>, ?>> analyticsFunctions = List.of(
+    final static String DESCRIPTION_RESULT_OF_FUNCTION = "Результат выполнения функции - ";
+    final static String DATE_TIME_FORMAT = "dd.MM.yy HH:mm";
+    final static String REQUIRE_FILE_PATH_INPUT = "Укажите путь к файлу в качестве аргумента командной строки.";
+    final static String FAILED_TO_READ_FILE = "Ошибка при чтении файла: ";
+    private static final List<Function<List<SleepingSession>, ?>> analyticsFunctions = List.of(
             new TotalSleepSessionsCounter(),
             new MinSleepDurationCalculator(),
             new MaxSleepDurationCalculator(),
@@ -20,13 +23,14 @@ public class SleepTrackerApp {
             new SleeplessNightsDetector(),
             new ChronotypeClassifier()
     );
+    private static List<SleepingSession> sleepingSessions;
 
     public static void main(String[] args) {
         if (args.length == 0) {
-            throw new RuntimeException("Укажите путь к файлу в качестве аргумента командной строки.");
+            throw new RuntimeException(REQUIRE_FILE_PATH_INPUT);
         }
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yy HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
 
         try (InputStream inputStream = new FileInputStream(args[0]);
              BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
@@ -42,7 +46,7 @@ public class SleepTrackerApp {
 
             runAnalytics(sleepingSessions);
         } catch (IOException e) {
-            throw new RuntimeException("Ошибка при чтении файла: " + args[0], e);
+            throw new RuntimeException(FAILED_TO_READ_FILE + args[0], e);
         }
     }
 
@@ -51,7 +55,7 @@ public class SleepTrackerApp {
                 .map(function -> function.apply(sleepingSessions))
                 .forEach(result -> {
                     SleepAnalysisResult sleepAnalysisResult = (SleepAnalysisResult) result;
-                    System.out.println("Результат выполнения функции - " + sleepAnalysisResult.getDescription()
+                    System.out.println(DESCRIPTION_RESULT_OF_FUNCTION + sleepAnalysisResult.getDescription()
                             + sleepAnalysisResult.getResult());
                 });
     }

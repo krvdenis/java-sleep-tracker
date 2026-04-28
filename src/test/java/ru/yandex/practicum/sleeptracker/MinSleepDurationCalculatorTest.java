@@ -12,9 +12,12 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MinSleepDurationCalculatorTest {
+    private final static String DATE_TIME_FORMAT = "dd.MM.yy HH:mm";
+    private final static String DESCRIPTION_OF_RESULT = "Минимальная продолжительность сессии в минутах: ";
+    private final static String DESCRIPTION_OF_EMPTY_RESULT = "Сессии сна для анализа отсутствуют: ";
     private final MinSleepDurationCalculator minSleepDurationCalculator = new MinSleepDurationCalculator();
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yy HH:mm");
-    List<SleepingSession> sleepingSessions;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
+    private List<SleepingSession> sleepingSessions;
 
     @BeforeEach
     void init() {
@@ -25,7 +28,7 @@ public class MinSleepDurationCalculatorTest {
     void shouldReturnZeroWhenListOfSleepSessionsIsEmpty() {
         SleepAnalysisResult minSleepDurationInMinutes = minSleepDurationCalculator.apply(sleepingSessions);
 
-        assertEquals("Сессии сна для расчёта отсутствуют: ", minSleepDurationInMinutes.getDescription());
+        assertEquals(DESCRIPTION_OF_EMPTY_RESULT, minSleepDurationInMinutes.getDescription());
         assertEquals(0, minSleepDurationInMinutes.getResult());
     }
 
@@ -42,7 +45,7 @@ public class MinSleepDurationCalculatorTest {
         SleepAnalysisResult minSleepDurationInMinutes = minSleepDurationCalculator.apply(sleepingSessions);
 
         assertEquals(
-                "Минимальная продолжительность сессии в минутах: ",
+                DESCRIPTION_OF_RESULT,
                 minSleepDurationInMinutes.getDescription()
         );
         assertEquals(660, minSleepDurationInMinutes.getResult());
