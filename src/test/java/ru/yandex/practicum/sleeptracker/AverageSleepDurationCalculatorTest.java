@@ -12,8 +12,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AverageSleepDurationCalculatorTest {
-    private final static String DATE_TIME_FORMAT = "dd.MM.yy HH:mm";
-    private final static String DESCRIPTION_OF_RESULT = "Средняя продолжительность сессий в минутах: ";
+    private static final String DATE_TIME_FORMAT = "dd.MM.yy HH:mm";
+    private static final String DESCRIPTION_OF_RESULT = "Средняя продолжительность сессий в минутах: ";
     private final AverageSleepDurationCalculator averageSleepDurationCalculator = new AverageSleepDurationCalculator();
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
     private List<SleepingSession> sleepingSessions;

@@ -12,9 +12,9 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MaxSleepDurationCalculatorTest {
-    private final static String DATE_TIME_FORMAT = "dd.MM.yy HH:mm";
-    private final static String DESCRIPTION_OF_RESULT = "Максимальная продолжительность сессии в минутах: ";
-    private final static String DESCRIPTION_OF_EMPTY_RESULT = "Сессии сна для анализа отсутствуют: ";
+    private static final String DATE_TIME_FORMAT = "dd.MM.yy HH:mm";
+    private static final String DESCRIPTION_OF_RESULT = "Максимальная продолжительность сессии в минутах: ";
+    private static final String DESCRIPTION_OF_EMPTY_RESULT = "Сессии сна для анализа отсутствуют: ";
     private final MaxSleepDurationCalculator maxSleepDurationCalculator = new MaxSleepDurationCalculator();
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
     private List<SleepingSession> sleepingSessions;

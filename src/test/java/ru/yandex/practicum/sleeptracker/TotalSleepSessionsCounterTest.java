@@ -12,9 +12,9 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TotalSleepSessionsCounterTest {
-    private final static String DATE_TIME_FORMAT = "dd.MM.yy HH:mm";
-    private final static String DESCRIPTION_OF_RESULT = "Общее количество сессий сна: ";
-    private final static String DESCRIPTION_OF_EMPTY_RESULT = "Сессии сна для анализа отсутствуют: ";
+    private static final String DATE_TIME_FORMAT = "dd.MM.yy HH:mm";
+    private static final String DESCRIPTION_OF_RESULT = "Общее количество сессий сна: ";
+    private static final String DESCRIPTION_OF_EMPTY_RESULT = "Сессии сна для анализа отсутствуют: ";
     private final TotalSleepSessionsCounter totalSleepSessionsCounter = new TotalSleepSessionsCounter();
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
     private List<SleepingSession> sleepingSessions;

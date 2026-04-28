@@ -12,10 +12,10 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SleeplessNightsDetectorTest {
-    private final static String DATE_TIME_FORMAT = "dd.MM.yy HH:mm";
-    private final static String DESCRIPTION_OF_RESULT = "Общее количество бессонных ночей: ";
-    private final static String DESCRIPTION_OF_EMPTY_RESULT = "Сессии cна для анализа отсутствуют: ";
-    private final static String EMPTY_RESULT = "невозможно определить количество бессонных ночей";
+    private static final String DATE_TIME_FORMAT = "dd.MM.yy HH:mm";
+    private static final String DESCRIPTION_OF_RESULT = "Общее количество бессонных ночей: ";
+    private static final String DESCRIPTION_OF_EMPTY_RESULT = "Сессии cна для анализа отсутствуют: ";
+    private static final String EMPTY_RESULT = "невозможно определить количество бессонных ночей";
     private final SleeplessNightsDetector sleeplessNightsDetector = new SleeplessNightsDetector();
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
     private List<SleepingSession> sleepingSessions;

@@ -10,9 +10,9 @@ import java.util.Optional;
 import java.util.function.Function;
 
 public class MinSleepDurationCalculator implements Function<List<SleepingSession>, SleepAnalysisResult> {
-    private final static String DESCRIPTION_OF_RESULT = "Минимальная продолжительность сессии в минутах: ";
-    private final static String DESCRIPTION_OF_EMPTY_RESULT = "Сессии сна для анализа отсутствуют: ";
-    private final static int EMPTY_RESULT = 0;
+    private static final String DESCRIPTION_OF_RESULT = "Минимальная продолжительность сессии в минутах: ";
+    private static final String DESCRIPTION_OF_EMPTY_RESULT = "Сессии сна для анализа отсутствуют: ";
+    private static final int EMPTY_RESULT = 0;
 
     @Override
     public SleepAnalysisResult apply(List<SleepingSession> sleepingSessions) {

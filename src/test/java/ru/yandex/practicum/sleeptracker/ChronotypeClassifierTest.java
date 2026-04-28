@@ -12,10 +12,10 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ChronotypeClassifierTest {
-    private final static String DATE_TIME_FORMAT = "dd.MM.yy HH:mm";
-    private final static String DESCRIPTION_OF_RESULT = "Ваш хронотип: ";
-    private final static String DESCRIPTION_OF_EMPTY_RESULT = "Сессии cна для анализа отсутствуют: ";
-    private final static String EMPTY_RESULT = "невозможно определить хронотип";
+    private static final String DATE_TIME_FORMAT = "dd.MM.yy HH:mm";
+    private static final String DESCRIPTION_OF_RESULT = "Ваш хронотип: ";
+    private static final String DESCRIPTION_OF_EMPTY_RESULT = "Сессии cна для анализа отсутствуют: ";
+    private static final String EMPTY_RESULT = "невозможно определить хронотип";
     private final ChronotypeClassifier chronotypeClassifier = new ChronotypeClassifier();
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
     private List<SleepingSession> sleepingSessions;

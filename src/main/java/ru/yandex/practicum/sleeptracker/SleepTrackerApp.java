@@ -10,10 +10,10 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class SleepTrackerApp {
-    final static String DESCRIPTION_RESULT_OF_FUNCTION = "Результат выполнения функции - ";
-    final static String DATE_TIME_FORMAT = "dd.MM.yy HH:mm";
-    final static String REQUIRE_FILE_PATH_INPUT = "Укажите путь к файлу в качестве аргумента командной строки.";
-    final static String FAILED_TO_READ_FILE = "Ошибка при чтении файла: ";
+    private static final String DESCRIPTION_RESULT_OF_FUNCTION = "Результат выполнения функции - ";
+    private static final String DATE_TIME_FORMAT = "dd.MM.yy HH:mm";
+    private static final String REQUIRE_FILE_PATH_INPUT = "Укажите путь к файлу в качестве аргумента командной строки.";
+    private static final String FAILED_TO_READ_FILE = "Ошибка при чтении файла: ";
     private static final List<Function<List<SleepingSession>, ?>> analyticsFunctions = List.of(
             new TotalSleepSessionsCounter(),
             new MinSleepDurationCalculator(),

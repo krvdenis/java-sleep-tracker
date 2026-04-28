@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.function.Function;
 
 public class ChronotypeClassifier implements Function<List<SleepingSession>, SleepAnalysisResult> {
-    private final static String DESCRIPTION_OF_RESULT = "Ваш хронотип: ";
-    private final static String DESCRIPTION_OF_EMPTY_RESULT = "Сессии cна для анализа отсутствуют: ";
-    private final static String EMPTY_RESULT = "невозможно определить хронотип";
+    private static final String DESCRIPTION_OF_RESULT = "Ваш хронотип: ";
+    private static final String DESCRIPTION_OF_EMPTY_RESULT = "Сессии cна для анализа отсутствуют: ";
+    private static final String EMPTY_RESULT = "невозможно определить хронотип";
 
     @Override
     public SleepAnalysisResult apply(List<SleepingSession> sleepingSessions) {

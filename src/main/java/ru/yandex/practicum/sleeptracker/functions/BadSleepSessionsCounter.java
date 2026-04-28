@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.function.Function;
 
 public class BadSleepSessionsCounter implements Function<List<SleepingSession>, SleepAnalysisResult> {
-    private final static String DESCRIPTION_OF_RESULT = "Количество сессий с плохим качеством сна: ";
-    private final static String DESCRIPTION_OF_EMPTY_RESULT = "Сессии сна для анализа отсутствуют: ";
-    private final static String NEEDED_SLEEP_QUALITY = "BAD";
-    private final static int EMPTY_RESULT = 0;
+    private static final String DESCRIPTION_OF_RESULT = "Количество сессий с плохим качеством сна: ";
+    private static final String DESCRIPTION_OF_EMPTY_RESULT = "Сессии сна для анализа отсутствуют: ";
+    private static final String NEEDED_SLEEP_QUALITY = "BAD";
+    private static final int EMPTY_RESULT = 0;
 
     @Override
     public SleepAnalysisResult apply(List<SleepingSession> sleepingSessions) {
